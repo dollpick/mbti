@@ -30,7 +30,7 @@ df = load_data()
 # 💡 추가된 부분: 16Personalities 검사 링크 버튼
 # ---------------------------------------------------------
 st.markdown("---") # 구분선
-st.link_button("➡️ 내 MBTI 검사하러 가기 (16Personalities)", "https://www.16personalities.com/ko")
+st.link_button("➡️ 내 MBTI 검사하러 가기!", "https://www.16personalities.com/ko")
 st.markdown("---") # 구분선
 # ---------------------------------------------------------
 
@@ -115,3 +115,4 @@ if not df.empty:
                     
                     st.write("") # 간격 띄우기
                     st.write("") # 간격 띄우기
+
