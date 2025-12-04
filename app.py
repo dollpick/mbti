@@ -26,6 +26,15 @@ def load_data():
 
 df = load_data()
 
+# ---------------------------------------------------------
+# 💡 추가된 부분: 16Personalities 검사 링크 버튼
+# ---------------------------------------------------------
+st.markdown("---") # 구분선
+st.link_button("➡️ 내 MBTI 검사하러 가기 (16Personalities)", "https://www.16personalities.com/ko")
+st.markdown("---") # 구분선
+# ---------------------------------------------------------
+
+
 if not df.empty:
     # ---------------------------------------------------------
     # 2. 조회 모드 선택 (탭 구성)
@@ -41,18 +50,17 @@ if not df.empty:
         
         # 팀 선택 버튼 생성 (가로로 나열하기 위해 columns 사용)
         # 팀이 많을 경우를 대비해 동적으로 컬럼 생성
-        cols = st.columns(len(teams))
+        # 최대 5개의 컬럼으로 제한하고, 나머지는 다음 줄로 넘기기
+        num_cols = min(len(teams), 5) 
+        cols = st.columns(num_cols)
         
         selected_team = None
         
         # 각 팀별 버튼 생성
         for i, team in enumerate(teams):
-            if cols[i].button(f"{team}", key=f"btn_{team}", use_container_width=True):
-                selected_team = team
-        
-        # 초기 상태거나 버튼을 눌렀을 때 결과 표시
-        # (Streamlit은 버튼 누르면 리로드되므로 세션 상태 관리가 필요하지만, 
-        #  간단하게 마지막 클릭 정보를 표시하는 로직으로 구현)
+            with cols[i % num_cols]: # num_cols 만큼 반복 후 다음 컬럼으로
+                if st.button(f"{team}", key=f"btn_{team}", use_container_width=True):
+                    selected_team = team
         
         st.divider() # 구분선
         
